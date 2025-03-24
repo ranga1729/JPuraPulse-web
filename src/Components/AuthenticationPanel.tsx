@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Button, Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Row } from "reactstrap";
+import { AuthPanelType } from "../types/CommonTypes";
 
 interface Props {
-  title:string;
+  title : string;
+  type : AuthPanelType;
 }
 
 const LoginPanel = (props:Props) => {
+  const[username, setUsername] = useState<string>('');
   const[email, setEmail] = useState<string>('');
   const[password, setPassword] = useState<string>('');
 
@@ -26,6 +29,18 @@ const LoginPanel = (props:Props) => {
           {props.title}
         </CardTitle>
         <Form style={{display:'flex', flexDirection:'column'}}>
+           { props.type == "Register"  && <FormGroup>
+            <Label for="username">Username</Label>
+            <Input
+              id="username"
+              name="username"
+              placeholder="JohnDoe"
+              type="text"
+              autoFocus autoComplete="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </FormGroup> }
           <FormGroup>
             <Label for="email">Email</Label>
             <Input
@@ -33,7 +48,7 @@ const LoginPanel = (props:Props) => {
               name="email"
               placeholder="as2025000@usjp.ac.lk"
               type="email"
-              autoFocus autoComplete="email"
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -44,6 +59,7 @@ const LoginPanel = (props:Props) => {
               id="password"
               name="password"
               type="password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
