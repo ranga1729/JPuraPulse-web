@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Button, Card, CardImg, CardImgOverlay, CardTitle, Col, Form, FormGroup, Input } from "reactstrap";
+import { Button, ButtonGroup, Card, CardImg, CardImgOverlay, CardTitle, Col, Form, FormGroup, Input } from "reactstrap";
 
 const SearchBanner = () => {
-  const[searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [timeFilter, setTimeFilter] = useState<number>(1);
 
   return <Col style={{margin:0, padding:0}}>
     <Card inverse style={{margin:0, padding:0, borderRadius:0}}>
@@ -28,6 +29,32 @@ const SearchBanner = () => {
               Search
             </Button>            
           </FormGroup>
+
+          <ButtonGroup size="sm" style={{padding:'0.25rem'}}>
+            <Button
+              color={timeFilter === 1?"primary":"light"}
+              outline
+              onClick={() => setTimeFilter(1)}
+              active={timeFilter === 1}>
+              All
+            </Button>
+            <Button
+              outline
+              color={timeFilter === 2?"primary":"light"}
+              onClick={() => setTimeFilter(2)}
+              active={timeFilter === 2}
+            >
+              This month
+            </Button>
+            <Button
+              outline
+              color={timeFilter === 3?"primary":"light"}
+              onClick={() => setTimeFilter(3)}
+              active={timeFilter === 3}
+            >
+              Next month
+            </Button>
+          </ButtonGroup>
         </Form>
         
       </CardImgOverlay>

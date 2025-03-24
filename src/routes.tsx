@@ -1,10 +1,10 @@
 import { createBrowserRouter, RouteObject } from 'react-router';
-import App from "./App";
+import Home from './Pages/Home';
 import Login from './Pages/Login'
 import Register from "./Pages/Register";
 
 const routes: RouteObject[] = [
-  { path: "/", element: <App /> },
+  { path: "/", element: <Home /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
 ];
