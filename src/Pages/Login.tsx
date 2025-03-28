@@ -4,6 +4,8 @@ import { Button, Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Row }
 const Login = () => {
   
   const handleSubmit = () => { }
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return <Row style={{width:'100vw', height:'100vh', margin:0, padding:0, display:'flex', justifyContent:'center', alignItems:'center'}}>
     <Card style={{width: '20rem', display:'flex', justifyContent:'center', alignItems:'center', paddingTop:12}}>
