@@ -17,7 +17,7 @@ const EventCard = (props : Props) => {
   return <Card style={{ maxWidth: '15rem'}}>
     <img alt="Event Image" src={testImage} />
     <CardBody style={{padding:'0.5rem'}}>
-      <CardTitle tag="h5" style={{textAlign:'center'}}> {props.title} </CardTitle>
+      <CardTitle tag="h5"> {props.title} </CardTitle>
       <CardSubtitle className="mb-2 text-muted" tag="h6">
         {props.description}
       </CardSubtitle>

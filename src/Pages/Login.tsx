@@ -1,9 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 
 const Login = () => {
-  const[email, setEmail] = useState<string>('');
-  const[password, setPassword] = useState<string>('');
   
   const handleSubmit = () => { }
 
@@ -25,6 +23,7 @@ const Login = () => {
           <FormGroup>
             <Label for="email">Email</Label>
             <Input
+              required
               id="email"
               name="email"
               placeholder="as2025000@usjp.ac.lk"
@@ -37,6 +36,7 @@ const Login = () => {
           <FormGroup>
             <Label for="password">Password</Label>
             <Input
+              required
               id="password"
               name="password"
               type="password"
@@ -45,11 +45,9 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </FormGroup>
-
           <Button color="primary" type="submit" onSubmit={handleSubmit}>
             Login
           </Button>
-
         </Form>
       </CardBody>
     </Card>
