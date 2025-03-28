@@ -1,4 +1,5 @@
-import { Col, Navbar, NavbarBrand } from 'reactstrap';
+import { Button, Col, Navbar, NavbarBrand } from 'reactstrap';
+import LogoutButton from './LogoutButton';
 
 const Header = () => {
   return <Col style={{margin:0, padding:0}}>
@@ -12,6 +13,7 @@ const Header = () => {
         />
         Japura Pulse
       </NavbarBrand>
+      <LogoutButton/>
     </Navbar>
   </Col>
 }

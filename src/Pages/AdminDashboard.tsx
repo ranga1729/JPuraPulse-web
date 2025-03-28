@@ -1,7 +1,6 @@
 import { Button, Col, Form, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import Header from "../Components/Header";
 import { useState } from "react";
-import test from '../assets/test.jpg'
 import EventCard from "../Components/EventCard";
  
 const AdminDashboard = () => {

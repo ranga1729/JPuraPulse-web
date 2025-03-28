@@ -1,14 +1,39 @@
 import { useState } from 'react';
-import { Button, Card, CardBody, CardTitle, Col, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Alert, Button, Card, CardBody, CardTitle, Col, Form, FormGroup, Input, Label, Nav, NavItem, NavLink, Row } from 'reactstrap';
+import api from '../Utils/api';
+import { RegisterDto } from '../types/CommonTypes';
 
 const Login = () => {
+  const [formData, setFormData] = useState<RegisterDto>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState<string|undefined>();
+  const [alertVisible, setAlertVisible] = useState<boolean>(false);
 
-  const[firstName, setFirstName] = useState<string>('');
-  const[lastName, setLastName] = useState<string>('');
-  const[email, setEmail] = useState<string>('');
-  const[password, setPassword] = useState<string>('');
+  const onAlertDismiss = () => setAlertVisible(false);
+
+  const handleChange = (e:any) => {
+    setFormData({...formData, [e.target.name] : e.target.value})
+  }
   
-  const handleSubmit = () => { }
+  const handleRegister = async (e:any) => {
+    e.preventDefault();
+
+    try {
+      const response = await api.post("/user/register", formData)
+      if(response.status == 200) 
+      {
+        alert("Registration successful");
+        window.location.href = "/login";
+      }
+    } catch(err) {
+      setError("Registration failed. Try again.");
+      setAlertVisible(true);
+    }
+  }
   
   return <Row style={{width:'100vw', height:'100vh', margin:0, padding:0, display:'flex', justifyContent:'center', alignItems:'center'}}>
     <Card style={{width: '25rem', display:'flex', justifyContent:'center', alignItems:'center', paddingTop:12}}>
@@ -18,13 +43,20 @@ const Login = () => {
         height={80}
         width={80}
       />
-      <CardBody style={{display:'flex', flexDirection:'column', width:'100%', padding:'8px 8px 16px 8px'}}>
+      <CardBody style={{display:'flex', flexDirection:'column', width:'100%', padding:'8px 8px 0px 8px'}}>
         
         <CardTitle tag="h5" style={{textAlign:'center', paddingBottom:'1rem'}}>
           Register
         </CardTitle>
 
-        <Form style={{display:'flex', flexDirection:'column'}}>
+        { error && <Row>
+            <Alert color="danger" isOpen={alertVisible} toggle={onAlertDismiss}>
+              Username or Password is incorrect !
+            </Alert>
+          </Row>
+        }
+
+        <Form style={{display:'flex', flexDirection:'column'}} onSubmit={handleRegister}>
           <FormGroup row>
               <Label for="firstName"  sm={4}>First Name</Label>
             <Col>
@@ -34,8 +66,8 @@ const Login = () => {
                 placeholder="John"
                 type="text"
                 autoFocus
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={formData?.firstName}
+                onChange={handleChange}
               />
             </Col>
           </FormGroup>
@@ -47,8 +79,8 @@ const Login = () => {
                 name="lastName"
                 placeholder="Doe"
                 type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={formData?.lastName}
+                onChange={handleChange}
               />
             </Col>
           </FormGroup>
@@ -60,8 +92,8 @@ const Login = () => {
               placeholder="as2025000@usjp.ac.lk"
               type="email"
               autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData?.email}
+              onChange={handleChange}
             />
           </FormGroup>
           <FormGroup>
@@ -71,14 +103,22 @@ const Login = () => {
               name="password"
               type="password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData?.password}
+              onChange={handleChange}
             />
           </FormGroup>
 
-          <Button color="primary" type="submit" onSubmit={handleSubmit}>
-            Login
+          <Button color="primary" type="submit">
+            Submit
           </Button>
+
+          <FormGroup style={{marginTop:'1rem'}}>
+            <Nav justified>
+              <NavItem>
+                <NavLink active href='/login'>Already have an account</NavLink>
+              </NavItem>
+            </Nav>
+          </FormGroup>
 
         </Form>
       </CardBody>
